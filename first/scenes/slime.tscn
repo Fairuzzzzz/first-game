@@ -1,0 +1,67 @@
+[gd_scene load_steps=10 format=3 uid="uid://cpka8y0bxxyxw"]
+
+[ext_resource type="Script" path="res://scripts/slime.gd" id="1_cekq3"]
+[ext_resource type="Texture2D" uid="uid://bdvrhlbma7qns" path="res://assets/sprites/slime_green.png" id="1_waj1u"]
+[ext_resource type="PackedScene" uid="uid://cxgf8huhd1x1f" path="res://scenes/kill_zone.tscn" id="2_ldqtq"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fhc5e"]
+atlas = ExtResource("1_waj1u")
+region = Rect2(0, 24, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2dk3p"]
+atlas = ExtResource("1_waj1u")
+region = Rect2(24, 24, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7ym4u"]
+atlas = ExtResource("1_waj1u")
+region = Rect2(48, 24, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sisxg"]
+atlas = ExtResource("1_waj1u")
+region = Rect2(72, 24, 24, 24)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_qn5as"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fhc5e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2dk3p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7ym4u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sisxg")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_b3lt4"]
+size = Vector2(12, 13)
+
+[node name="Slime" type="Node2D"]
+script = ExtResource("1_cekq3")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -12)
+sprite_frames = SubResource("SpriteFrames_qn5as")
+autoplay = "default"
+frame_progress = 0.591717
+
+[node name="Kill Zone" parent="." instance=ExtResource("2_ldqtq")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Kill Zone"]
+position = Vector2(0, -7.5)
+shape = SubResource("RectangleShape2D_b3lt4")
+
+[node name="RayCastLeft" type="RayCast2D" parent="."]
+position = Vector2(0, -7)
+target_position = Vector2(6, 0)
+
+[node name="RayCastRight" type="RayCast2D" parent="."]
+position = Vector2(0, -7)
+target_position = Vector2(-6, 0)
